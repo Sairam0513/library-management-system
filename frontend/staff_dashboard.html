@@ -1,0 +1,159 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Staff Dashboard</title>
+  <link rel="stylesheet" href="staff_dashboard.css" />
+</head>
+<body>
+
+  <!-- Banner -->
+  <header>
+    <img src="banner.jpg.png" alt="College Banner" class="banner" />
+  </header>
+
+  <!-- Profile Section -->
+  <section class="profile">
+    <div class="staff-info">
+      <img src="staff.png" alt="staff icon" class="staff-icon" />
+      <div>
+        <h3 id="staffName">Loading...</h3>
+        <p id="staffEmail">Loading...</p>
+      </div>
+    </div>
+
+    <div class="right-controls">
+      <button class="book-list-toggle" onclick="toggleBookList()">📚 Book List</button>
+    </div>
+  </section>
+
+  <!-- Book List Dropdown -->
+  <section id="bookListSection" class="book-list">
+    <h4>Available Books</h4>
+    <div class="book-scroll">
+      <ul id="bookList"></ul>
+    </div>
+  </section>
+
+  <!-- Table Section -->
+  <section class="table-section">
+    <table>
+      <thead>
+        <tr>
+          <th>S.No</th>
+          <th>Book Taken</th>
+          <th>Taken Date</th>
+          <th>Return Date</th>
+          <th>Submit</th>
+          <th>Status</th>
+        </tr>
+      </thead>
+      <tbody id="bookTableBody"></tbody>
+    </table>
+  </section>
+
+  <!-- Background Decorations -->
+  <div class="background-decor">
+    <div class="circle"></div>
+    <div class="triangle"></div>
+    <div class="square"></div>
+  </div>
+
+  <!-- Script -->
+  <script>
+    // Fetch and display staff info
+    fetch("/staff-info")
+      .then(res => {
+        if (!res.ok) throw new Error("Not logged in");
+        return res.json();
+      })
+      .then(data => {
+        document.getElementById("staffName").textContent = data.full_name;
+        document.getElementById("staffEmail").textContent = data.email;
+      })
+      .catch(err => {
+        console.error("Staff info fetch error:", err);
+        alert("Session expired or not logged in. Redirecting...");
+        window.location.href = "/staff";
+      });
+
+    // Book borrow handling
+    let borrowedBooks = [];
+
+    function updateBookTable() {
+      const tableBody = document.getElementById("bookTableBody");
+      tableBody.innerHTML = "";
+
+      borrowedBooks.forEach((book, index) => {
+        const taken = new Date(book.takenDate);
+        const returnDate = new Date(taken);
+        returnDate.setDate(taken.getDate() + 5);
+
+        const statusText = book.submitted ? "Submitted" : "Not Submitted";
+
+        const row = `
+          <tr>
+            <td>${index + 1}</td>
+            <td>${book.title}</td>
+            <td>${taken.toDateString()}</td>
+            <td>${returnDate.toDateString()}</td>
+            <td>${book.submitted ? '✔️' : '<button onclick="submitBook(this)">Submit</button>'}</td>
+            <td>${statusText}</td>
+          </tr>
+        `;
+        tableBody.innerHTML += row;
+      });
+    }
+
+    function submitBook(button) {
+      const row = button.closest("tr");
+      const bookTitle = row.cells[1].innerText;
+
+      const book = borrowedBooks.find(b => b.title === bookTitle && !b.submitted);
+      if (book) book.submitted = true;
+
+      updateBookTable();
+    }
+
+    function toggleBookList() {
+  const section = document.getElementById("bookListSection");
+  section.classList.toggle("open");
+
+  if (section.classList.contains("open")) {
+    fetch("/available-books")
+      .then(res => res.json())
+      .then(books => {
+        const list = document.getElementById("bookList");
+        list.innerHTML = "";
+        books.forEach((book, i) => {
+          const li = document.createElement("li");
+          li.innerHTML = `
+            <span class="book-info">${i + 1}. ${book.title} <em>by ${book.author}</em></span>
+            <button class="borrow-btn" onclick="borrowBook('${book.title.replace(/'/g, "\\'")}')">Borrow</button>
+          `;
+          list.appendChild(li);
+        });
+      })
+      .catch(err => console.error("Book fetch error:", err));
+  }
+}
+
+    function borrowBook(title) {
+      if (borrowedBooks.find(b => b.title === title && !b.submitted)) {
+        alert("You've already borrowed this book.");
+        return;
+      }
+
+      const today = new Date();
+      borrowedBooks.push({
+        title,
+        takenDate: today,
+        submitted: false
+      });
+      updateBookTable();
+      alert(`📘 You borrowed "${title}"`);
+    }
+  </script>
+</body>
+</html>

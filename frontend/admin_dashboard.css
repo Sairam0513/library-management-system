@@ -1,0 +1,138 @@
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+  font-family: "Segoe UI", sans-serif;
+}
+
+body {
+  background: linear-gradient(135deg, #60c0cc, #fff);
+  overflow-x: hidden;
+}
+
+/* Banner */
+.banner {
+  width: 100%;
+  height: auto;
+  max-height: 210px;
+  object-fit: cover;
+}
+
+/* Profile */
+.profile {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 1rem 2rem;
+  background: #f0f8ff;
+}
+
+.student-info {
+  display: flex;
+  align-items: center;
+}
+
+.student-icon {
+  width: 60px;
+  height: 60px;
+  margin-right: 1rem;
+}
+
+.quote-slider {
+  width: 300px;
+  height: 60px;
+  overflow: hidden;
+  border: 2px dashed #333;
+  border-radius: 10px;
+  background-color: #e0f7fa;
+  padding: 10px;
+}
+
+.quotes {
+  display: flex;
+  flex-direction: column;
+  transition: transform 0.5s ease-in-out;
+}
+
+.quotes span {
+  height: 60px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-style: italic;
+  font-weight: bold;
+  text-align: center;
+}
+
+/* Tables */
+.table-section {
+  margin: 2rem;
+}
+
+table {
+  width: 100%;
+  border-collapse: collapse;
+  background-color: #fff;
+  box-shadow: 0 0 10px rgba(0,0,0,0.1);
+  border-radius: 8px;
+  overflow: hidden;
+}
+
+th, td {
+  padding: 0.75rem;
+  text-align: center;
+  border: 1px solid #ccc;
+}
+
+th {
+  background-color: #e0f7fa;
+  font-weight: bold;
+}
+
+button {
+  padding: 6px 12px;
+  background-color: #28a745;
+  color: white;
+  border: none;
+  border-radius: 6px;
+  cursor: pointer;
+}
+
+button:hover {
+  background-color: #218838;
+}
+
+/* Decorations */
+.background-decor .circle,
+.background-decor .triangle,
+.background-decor .square {
+  position: absolute;
+  z-index: -1;
+}
+
+.background-decor .circle {
+  width: 80px;
+  height: 80px;
+  border-radius: 50%;
+  background-color: rgba(0, 128, 255, 0.2);
+  top: 10%;
+  left: 5%;
+}
+
+.background-decor .triangle {
+  width: 0;
+  height: 0;
+  border-left: 60px solid transparent;
+  border-right: 60px solid transparent;
+  border-bottom: 100px solid rgba(255, 0, 0, 0.2);
+  top: 70%;
+  right: 10%;
+}
+
+.background-decor .square {
+  width: 60px;
+  height: 60px;
+  background-color: rgba(0, 255, 0, 0.2);
+  bottom: 5%;
+  left: 80%;
+}

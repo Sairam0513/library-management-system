@@ -1,0 +1,261 @@
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+  font-family: "Segoe UI", sans-serif;
+}
+
+body {
+  background: linear-gradient(135deg, #60c0cc, #fff);
+  overflow-x: hidden;
+}
+
+/* Banner */
+.banner {
+  width: 100%;
+  height: auto;
+  max-height: 210px;
+  object-fit: cover;
+}
+
+/* Profile Section */
+.profile {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 1rem 2rem;
+  background-color: #ffffffcc;
+  border-bottom: 2px solid #b2ebf2;
+  position: relative;
+  z-index: 2;
+}
+
+.student-info {
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+}
+
+.student-icon {
+  width: 50px;
+  height: 50px;
+}
+
+.right-controls {
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+}
+
+.fine-box {
+  background-color: #ffebee;
+  color: #c62828;
+  padding: 0.8rem 1.2rem;
+  font-weight: bold;
+  border-radius: 50%;
+  font-size: 1.1rem;
+  border: 2px solid #f44336;
+}
+
+/* Book List */
+.book-list {
+  background-color: #ffffffdd;
+  margin: 1rem 2rem;
+  padding: 1rem;
+  border: 2px solid #4db6ac;
+  border-radius: 10px;
+  box-shadow: 0 0 10px rgba(0,0,0,0.1);
+  max-height: 0;
+  overflow: hidden;
+  transition: max-height 0.6s ease-in-out, padding 0.3s ease;
+  position: relative;
+  z-index: 5;
+}
+
+.book-list:not(.hidden) {
+  max-height: 400px;
+  padding: 1rem;
+  overflow: visible;
+}
+
+.book-scroll {
+  max-height: 200px;
+  overflow-y: auto;
+  padding-right: 10px;
+}
+
+#bookList {
+  list-style: none;
+  padding: 0;
+}
+
+#bookList li {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 0.5rem 0.8rem;
+  border-bottom: 1px dashed #ccc;
+}
+
+.book-info {
+  flex: 1;
+  margin-right: 10px;
+  font-size: 0.95rem;
+  color: #333;
+}
+
+.borrow-btn {
+  background-color: #4db6ac;
+  color: white;
+  border: none;
+  padding: 0.4rem 0.8rem;
+  border-radius: 5px;
+  cursor: pointer;
+  transition: background-color 0.3s ease;
+}
+
+.borrow-btn:hover {
+  background-color: #00796b;
+}
+
+.book-list-toggle {
+  background-color: #fbc02d;
+  color: black;
+  border: none;
+  padding: 0.6rem 1.2rem;
+  font-weight: bold;
+  border-radius: 8px;
+  cursor: pointer;
+  transition: background 0.3s ease;
+}
+
+.book-list-toggle:hover {
+  background-color: #f57f17;
+}
+
+/* Table Section */
+.table-section {
+  padding: 1rem 2rem;
+  overflow-x: auto;
+  z-index: 2;
+  position: relative;
+}
+
+table {
+  width: 100%;
+  border-collapse: collapse;
+  background-color: white;
+  box-shadow: 0 5px 15px rgba(0,0,0,0.1);
+}
+
+thead {
+  background-color: #00acc1;
+  color: white;
+}
+
+th, td {
+  padding: 0.8rem;
+  border: 1px solid #ddd;
+  text-align: center;
+}
+
+/* Background Decor */
+.background-decor {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  overflow: hidden;
+  z-index: 0;
+}
+
+.circle, .triangle, .square {
+  position: absolute;
+  opacity: 0.2;
+  animation: float 10s infinite ease-in-out;
+}
+
+.circle {
+  width: 100px;
+  height: 100px;
+  background: #000000;
+  border-radius: 50%;
+  top: 10%;
+  left: 80%;
+}
+
+.triangle {
+  width: 0;
+  height: 0;
+  border-left: 60px solid transparent;
+  border-right: 60px solid transparent;
+  border-bottom: 100px solid #ce93d8;
+  top: 60%;
+  left: 5%;
+}
+
+.square {
+  width: 80px;
+  height: 80px;
+  background: #80deea;
+  top: 30%;
+  left: 40%;
+}
+
+@keyframes float {
+  0% { transform: translateY(0px); }
+  50% { transform: translateY(-20px); }
+  100% { transform: translateY(0px); }
+}
+
+/* Responsive Design */
+@media (max-width: 768px) {
+  .profile {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 0.5rem;
+  }
+
+  .right-controls {
+    margin-top: 1rem;
+    gap: 0.5rem;
+  }
+
+  .fine-box {
+    align-self: flex-end;
+    margin-top: 0.5rem;
+  }
+
+  table {
+    font-size: 0.9rem;
+  }
+
+  .student-icon {
+    width: 40px;
+    height: 40px;
+  }
+
+  .banner {
+    max-height: 100px;
+  }
+
+  #bookList li {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 0.5rem;
+  }
+
+  .borrow-btn {
+    align-self: flex-end;
+  }
+}
+
+/* Hidden Class */
+.hidden {
+  display: none;
+}
+.background-decor {
+  z-index: 0;
+  pointer-events: none; /* Prevents it from blocking clicks */
+}

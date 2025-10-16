@@ -1,0 +1,155 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Admin Dashboard</title>
+  <link rel="stylesheet" href="admin_dashboard.css" />
+</head>
+<body>
+
+  <!-- Banner -->
+  <header>
+    <img src="banner.jpg.png" alt="College Banner" class="banner" />
+  </header>
+
+  <!-- Profile Section -->
+  <section class="profile">
+    <div class="student-info">
+      <img src="admin.png" alt="admin icon" class="student-icon" />
+      <div>
+        <h3 id="adminName">Admin Name</h3>
+        <p id="adminEmail">email@example.com</p>
+      </div>
+    </div>
+
+    <!-- Book Quotes -->
+    <div class="quote-slider">
+      <div class="quotes" id="quotes">
+        <span>"A room without books is like a body without a soul."</span>
+        <span>"So many books, so little time."</span>
+        <span>"The only thing you absolutely have to know is the location of the library."</span>
+        <span>"Books are a uniquely portable magic."</span>
+      </div>
+    </div>
+  </section>
+
+  <!-- Student Table Section -->
+  <section class="table-section">
+    <h3>Student Book Records</h3>
+    <table>
+      <thead>
+        <tr>
+          <th>S.No</th>
+          <th>Student Name</th>
+          <th>Email ID</th>
+          <th>Book</th>
+          <th>Collect</th>
+        </tr>
+      </thead>
+      <tbody id="studentTableBody"></tbody>
+    </table>
+  </section>
+
+  <!-- Staff Table Section -->
+  <section class="table-section">
+    <h3>Staff Book Records</h3>
+    <table>
+      <thead>
+        <tr>
+          <th>S.No</th>
+          <th>Staff Name</th>
+          <th>Email ID</th>
+          <th>Book</th>
+          <th>Collect</th>
+        </tr>
+      </thead>
+      <tbody id="staffTableBody"></tbody>
+    </table>
+  </section>
+
+  <!-- Background Decorations -->
+  <div class="background-decor">
+    <div class="circle"></div>
+    <div class="triangle"></div>
+    <div class="square"></div>
+  </div>
+
+  <!-- Script -->
+  <script>
+    // Load admin info
+    fetch("/admin-info")
+      .then(res => res.json())
+      .then(data => {
+        document.getElementById("adminName").textContent = data.full_name;
+        document.getElementById("adminEmail").textContent = data.email;
+      });
+
+    // Load borrowed books
+    function loadBorrowedBooks() {
+      fetch("/borrowed-books")
+        .then(res => res.json())
+        .then(data => {
+          const studentTable = document.getElementById("studentTableBody");
+          const staffTable = document.getElementById("staffTableBody");
+
+          studentTable.innerHTML = "";
+          staffTable.innerHTML = "";
+
+          let sNo = 1;
+          data.students.forEach(entry => {
+            const row = `
+              <tr>
+                <td>${sNo++}</td>
+                <td>${entry.name}</td>
+                <td>${entry.email}</td>
+                <td>${entry.book}</td>
+                <td><button onclick="collectBook('student', '${entry.email}', '${entry.book}')">Collect</button></td>
+              </tr>`;
+            studentTable.innerHTML += row;
+          });
+
+          sNo = 1;
+          data.staff.forEach(entry => {
+            const row = `
+              <tr>
+                <td>${sNo++}</td>
+                <td>${entry.name}</td>
+                <td>${entry.email}</td>
+                <td>${entry.book}</td>
+                <td><button onclick="collectBook('staff', '${entry.email}', '${entry.book}')">Collect</button></td>
+              </tr>`;
+            staffTable.innerHTML += row;
+          });
+        });
+    }
+
+    function collectBook(role, email, book) {
+      fetch("/collect-book", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ role, email, book })
+      })
+      .then(res => res.json())
+      .then(result => {
+        if (result.success) {
+          alert("Book collected successfully ✅");
+          loadBorrowedBooks();
+        }
+      });
+    }
+
+    // Initial load
+    loadBorrowedBooks();
+
+    // Book quote slider
+    const quoteBox = document.getElementById("quotes");
+    let quoteIndex = 0;
+    setInterval(() => {
+      quoteIndex = (quoteIndex + 1) % quoteBox.children.length;
+      quoteBox.style.transform = `translateY(-${quoteIndex * 100}%)`;
+    }, 3000);
+  </script>
+
+</body>
+</html>

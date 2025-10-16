@@ -1,0 +1,218 @@
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+  font-family: "Segoe UI", sans-serif;
+}
+
+body {
+  background: linear-gradient(135deg, #60c0cc, #fff);
+  overflow-x: hidden;
+}
+
+/* Banner */
+.banner {
+  width: 100%;
+  height: auto;
+  max-height: 210px;
+  object-fit: cover;
+}
+
+/* Profile Section */
+.profile {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 20px 40px;
+  background-color: #ffffffb9;
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+  margin-top: -5px;
+}
+
+.staff-info {
+  display: flex;
+  align-items: center;
+  gap: 20px;
+}
+
+.staff-info img {
+  width: 80px;
+  height: 80px;
+  border-radius: 50%;
+  object-fit: cover;
+  border: 3px solid #ffffff;
+  box-shadow: 0 2px 6px rgba(0, 0, 0, 0.2);
+}
+
+.staff-info h3 {
+  font-size: 22px;
+  color: #222;
+}
+
+.staff-info p {
+  font-size: 14px;
+  color: #666;
+}
+
+.right-controls {
+  display: flex;
+  align-items: center;
+  gap: 20px;
+}
+
+.book-list-toggle {
+  padding: 8px 16px;
+  font-size: 15px;
+  background-color: #007bff;
+  color: white;
+  border: none;
+  border-radius: 8px;
+  cursor: pointer;
+  transition: background-color 0.3s ease;
+}
+
+.book-list-toggle:hover {
+  background-color: #0056b3;
+}
+
+/* Book List Section */
+.book-list {
+  margin: 20px auto;
+  width: 90%;
+  background-color: #fdfdfd;
+  border-radius: 10px;
+  padding: 20px;
+  box-shadow: 0 0 12px rgba(0, 0, 0, 0.08);
+  display: none;
+}
+
+.book-list.open {
+  display: block;
+}
+
+.book-list h4 {
+  font-size: 18px;
+  margin-bottom: 15px;
+}
+
+.book-scroll ul {
+  list-style: none;
+}
+
+.book-scroll li {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 10px 15px;
+  border-bottom: 1px solid #ddd;
+}
+
+.book-scroll li:last-child {
+  border-bottom: none;
+}
+
+.book-info {
+  font-size: 15px;
+  color: #333;
+}
+
+.borrow-btn {
+  padding: 6px 12px;
+  font-size: 14px;
+  background-color: #28a745;
+  color: white;
+  border: none;
+  border-radius: 6px;
+  cursor: pointer;
+  transition: background-color 0.3s ease;
+}
+
+.borrow-btn:hover {
+  background-color: #218838;
+}
+
+/* Table Section */
+.table-section {
+  margin: 30px auto;
+  width: 90%;
+  overflow-x: auto;
+}
+
+table {
+  width: 100%;
+  border-collapse: collapse;
+  background-color: #ffffffd9;
+  border-radius: 8px;
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+}
+
+thead {
+  background-color: #007bff;
+  color: white;
+}
+
+th, td {
+  padding: 12px 15px;
+  text-align: center;
+  border-bottom: 1px solid #ddd;
+}
+
+tbody tr:hover {
+  background-color: #f5f5f5;
+}
+
+/* Decorations */
+.background-decor .circle,
+.background-decor .triangle,
+.background-decor .square {
+  position: absolute;
+  opacity: 0.1;
+}
+
+.circle {
+  width: 100px;
+  height: 100px;
+  border-radius: 50%;
+  background: #007bff;
+  top: 10%;
+  left: 5%;
+}
+
+.triangle {
+  width: 0;
+  height: 0;
+  border-left: 60px solid transparent;
+  border-right: 60px solid transparent;
+  border-bottom: 100px solid #28a745;
+  top: 60%;
+  right: 10%;
+}
+
+.square {
+  width: 80px;
+  height: 80px;
+  background-color: #ffc107;
+  bottom: 10%;
+  left: 20%;
+}
+
+/* Responsive Design */
+@media (max-width: 768px) {
+  .profile {
+    flex-direction: column;
+    align-items: flex-start;
+    padding: 20px;
+  }
+
+  .right-controls {
+    flex-direction: column;
+    align-items: flex-start;
+    width: 100%;
+    margin-top: 10px;
+  }
+
+  .table-section {
+    width: 100%;
+    overflow-x: auto;
+  }
+}

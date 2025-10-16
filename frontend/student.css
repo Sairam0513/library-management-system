@@ -1,0 +1,181 @@
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+  font-family: "Segoe UI", sans-serif;
+}
+
+body {
+  background: linear-gradient(135deg, #60c0cc, #fff);
+  overflow-x: hidden;
+}
+
+.banner {
+  width: 100%;
+  height: auto;
+  max-height: 210px;
+  object-fit: cover;
+}
+
+/* Identity Card Style Login Box */
+.card-container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  padding: 2rem;
+  min-height: 80vh;
+  position: relative;
+  z-index: 2;
+}
+
+.card-box {
+  background: #fff;
+  border-radius: 20px;
+  padding: 2rem;
+  width: 100%;
+  max-width: 400px;
+  box-shadow: 0 10px 20px rgba(0,0,0,0.25);
+  text-align: center;
+  border: 4px solid #b2ebf2;
+  position: relative;
+}
+
+.card-box h2 {
+  color: #003c5a;
+  margin-bottom: 1.2rem;
+  font-size: 1.7rem;
+}
+
+/* Wrapper to hold both forms */
+.form-wrapper {
+  position: relative;
+  min-height: 360px;
+}
+
+/* Shared form styles */
+.form {
+  position: absolute;
+  width: 100%;
+  opacity: 0;
+  transform: translateY(20px);
+  pointer-events: none;
+  transition: opacity 0.4s ease, transform 0.4s ease;
+}
+
+.form.active {
+  opacity: 1;
+  transform: translateY(0);
+  pointer-events: auto;
+  position: relative;
+}
+
+.form label {
+  text-align: left;
+  margin: 0.5rem 0 0.2rem;
+  font-weight: bold;
+  color: #444;
+  display: block;
+}
+
+.form input {
+  padding: 0.6rem;
+  margin-bottom: 0.8rem;
+  border: 2px solid #ddd;
+  border-radius: 8px;
+  width: 100%;
+  outline: none;
+}
+
+.form button {
+  padding: 0.7rem;
+  background: #60c0cc;
+  color: white;
+  font-weight: bold;
+  border: none;
+  border-radius: 10px;
+  cursor: pointer;
+  margin-top: 0.5rem;
+  width: 100%;
+  transition: background 0.3s ease;
+}
+
+.form button:hover {
+  background: #0097a7;
+}
+
+.switch-text {
+  font-size: 0.9rem;
+  margin-top: 1rem;
+}
+
+.switch-text a {
+  color: #007b9f;
+  text-decoration: none;
+  font-weight: bold;
+}
+
+.switch-text a:hover {
+  text-decoration: underline;
+}
+
+/* Decorative Background Shapes */
+.background-decor {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  overflow: hidden;
+  z-index: 1;
+}
+
+.circle, .triangle, .square {
+  position: absolute;
+  opacity: 0.2;
+  animation: float 10s infinite ease-in-out;
+}
+
+.circle {
+  width: 100px;
+  height: 100px;
+  background: #000000;
+  border-radius: 50%;
+  top: 10%;
+  left: 80%;
+}
+
+.triangle {
+  width: 0;
+  height: 0;
+  border-left: 60px solid transparent;
+  border-right: 60px solid transparent;
+  border-bottom: 100px solid #ce93d8;
+  top: 60%;
+  left: 5%;
+}
+
+.square {
+  width: 80px;
+  height: 80px;
+  background: #80deea;
+  top: 30%;
+  left: 40%;
+}
+
+@keyframes float {
+  0% { transform: translateY(0px); }
+  50% { transform: translateY(-20px); }
+  100% { transform: translateY(0px); }
+}
+
+/* Responsive */
+@media (max-width: 768px) {
+  .banner {
+    max-height: 100px;
+  }
+
+  .card-box {
+    width: 90%;
+    padding: 1.5rem;
+  }
+}

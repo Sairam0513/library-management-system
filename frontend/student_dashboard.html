@@ -1,0 +1,158 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Student Dashboard</title>
+  <link rel="stylesheet" href="student_dashboard.css" />
+</head>
+<body>
+  <!-- Banner -->
+  <header>
+    <img src="banner.jpg.png" alt="College Banner" class="banner" />
+  </header>
+
+  <!-- Profile Section -->
+  <section class="profile">
+    <div class="student-info">
+      <img src="student.png" alt="student icon" class="student-icon" />
+      <div>
+        <h3 id="studentName">Student Name</h3>
+        <p id="studentEmail">email@example.com</p>
+      </div>
+    </div>
+
+    <div class="right-controls">
+      <button class="book-list-toggle" onclick="toggleBookList()">📚 Book List</button>
+      <div class="fine-box">
+        Fine: ₹<span id="fineAmount">0</span>
+      </div>
+    </div>
+  </section>
+
+  <!-- Book List Dropdown -->
+  <section id="bookListSection" class="book-list hidden">
+    <h4>Available Books</h4>
+    <div class="book-scroll">
+      <ul id="bookList"></ul>
+    </div>
+  </section>
+
+  <!-- Table Section -->
+  <section class="table-section">
+    <table>
+      <thead>
+        <tr>
+          <th>S.No</th>
+          <th>Book Taken</th>
+          <th>Taken Date</th>
+          <th>Return Date</th>
+          <th>Submit</th>
+          <th>Status</th>
+        </tr>
+      </thead>
+      <tbody id="bookTableBody"></tbody>
+    </table>
+  </section>
+
+  <!-- Background Decorations -->
+  <div class="background-decor">
+    <div class="circle"></div>
+    <div class="triangle"></div>
+    <div class="square"></div>
+  </div>
+
+  <!-- Script -->
+  <script>
+    // Load student info
+    fetch("/student-info")
+      .then(res => res.json())
+      .then(data => {
+        document.getElementById("studentName").textContent = data.full_name;
+        document.getElementById("studentEmail").textContent = data.email;
+      })
+      .catch(err => console.error("Student info fetch error:", err));
+
+    let borrowedBooks = [];
+
+    function updateBookTable() {
+      const tableBody = document.getElementById("bookTableBody");
+      tableBody.innerHTML = "";
+      let totalFine = 0;
+
+      borrowedBooks.forEach((book, index) => {
+        const taken = new Date(book.takenDate);
+        const returnDate = new Date(taken);
+        returnDate.setDate(taken.getDate() + 5);
+
+        const today = new Date();
+        let fine = 0;
+        let statusText = book.submitted ? "Submitted" : "Not Submitted";
+
+        if (!book.submitted && today > returnDate) {
+          const lateDays = Math.floor((today - returnDate) / (1000 * 60 * 60 * 24));
+          fine = lateDays * 5;
+          totalFine += fine;
+        }
+
+        const row = `
+          <tr>
+            <td>${index + 1}</td>
+            <td>${book.title}</td>
+            <td>${taken.toDateString()}</td>
+            <td>${returnDate.toDateString()}</td>
+            <td>${book.submitted ? '✔️' : '<button onclick="submitBook(this)">Submit</button>'}</td>
+            <td>${statusText}</td>
+          </tr>
+        `;
+        tableBody.innerHTML += row;
+      });
+
+      document.getElementById("fineAmount").textContent = totalFine;
+    }
+
+    function submitBook(button) {
+      const row = button.closest("tr");
+      const bookTitle = row.cells[1].innerText;
+
+      const book = borrowedBooks.find(b => b.title === bookTitle && !b.submitted);
+      if (book) book.submitted = true;
+
+      updateBookTable();
+    }
+
+    function toggleBookList() {
+      const section = document.getElementById("bookListSection");
+      section.classList.toggle("hidden");
+
+      if (!section.classList.contains("hidden")) {
+        fetch("/available-books")
+          .then(res => res.json())
+          .then(books => {
+            const list = document.getElementById("bookList");
+            list.innerHTML = "";
+            books.forEach((book, i) => {
+              const li = document.createElement("li");
+              li.innerHTML = `
+                <span class="book-info">${i + 1}. ${book.title} <em>by ${book.author}</em></span>
+                <button class="borrow-btn" onclick="borrowBook('${book.title.replace(/'/g, "\\'")}')">Borrow</button>
+              `;
+              list.appendChild(li);
+            });
+          });
+      }
+    }
+
+    function borrowBook(title) {
+      const today = new Date().toISOString().split("T")[0];
+      borrowedBooks.push({
+        title,
+        takenDate: today,
+        submitted: false
+      });
+      updateBookTable();
+      alert(`📘 You borrowed "${title}"`);
+    }
+  </script>
+</body>
+</html>

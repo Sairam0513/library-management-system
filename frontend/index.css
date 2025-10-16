@@ -1,0 +1,161 @@
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+  font-family: "Segoe UI", sans-serif;
+}
+
+body {
+  background: linear-gradient(135deg, #60c0cc, #fff);
+  overflow-x: hidden;
+}
+
+.banner {
+  width: 100%;
+  height: auto;
+  max-height: 210px;
+  object-fit: cover;
+}
+
+/* Intro Heading Below Banner */
+.intro-text {
+  text-align: center;
+  padding: 1rem 2rem;
+  color: #1e1e1e;
+  font-family: 'Segoe UI', sans-serif;
+  position: relative;
+  z-index: 2;
+}
+
+.intro-text h2 {
+  font-size: 1.8rem;
+  margin-bottom: 0.3rem;
+  font-weight: 600;
+  color: #003c5a;
+}
+
+.intro-text p {
+  font-size: 1rem;
+  color: #555;
+}
+
+.container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-wrap: wrap;
+  padding: 2rem;
+  min-height: 70vh;
+  gap: 2rem;
+  position: relative;
+  z-index: 2;
+}
+
+.card {
+  background: white;
+  border-radius: 20px;
+  padding: 3.5rem 2rem; /* increased height */
+  box-shadow: 0 8px 16px rgba(0,0,0,0.2);
+  text-align: center;
+  text-decoration: none;
+  color: #333;
+  font-size: 1.5rem;
+  font-weight: bold;
+  display: flex;
+  align-items: center;
+  transition: transform 0.3s ease, background 0.3s ease;
+  border: 2px solid #b2ebf2;
+}
+
+.card:hover {
+  background: #b2ebf2;
+  transform: scale(1.05);
+}
+
+.icon {
+  width: 30px;
+  height: 30px;
+  margin-left: 10px;
+  object-fit: contain;
+}
+
+/* Decorative Background Shapes */
+.background-decor {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  overflow: hidden;
+  z-index: 1;
+}
+
+.circle, .triangle, .square {
+  position: absolute;
+  opacity: 0.2;
+  animation: float 10s infinite ease-in-out;
+}
+
+.circle {
+  width: 100px;
+  height: 100px;
+  background: #000000;
+  border-radius: 50%;
+  top: 10%;
+  left: 80%;
+}
+
+.triangle {
+  width: 0;
+  height: 0;
+  border-left: 60px solid transparent;
+  border-right: 60px solid transparent;
+  border-bottom: 100px solid #ce93d8;
+  top: 60%;
+  left: 5%;
+}
+
+.square {
+  width: 80px;
+  height: 80px;
+  background: #80deea;
+  top: 30%;
+  left: 40%;
+}
+
+@keyframes float {
+  0% { transform: translateY(0px); }
+  50% { transform: translateY(-20px); }
+  100% { transform: translateY(0px); }
+}
+
+/* Responsive Design */
+@media (max-width: 768px) {
+  .container {
+    flex-direction: column;
+    padding: 1rem;
+  }
+
+  .card {
+    width: 90%;
+    justify-content: center;
+    font-size: 1.2rem;
+  }
+
+  .icon {
+    width: 24px;
+    height: 24px;
+  }
+
+  .banner {
+    max-height: 100px;
+  }
+
+  .intro-text h2 {
+    font-size: 1.9rem;
+  }
+
+  .intro-text p {
+    font-size: 3.0rem;
+  }
+}

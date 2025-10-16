@@ -1,0 +1,78 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Student Login</title>
+  <link rel="stylesheet" href="student.css" />
+</head>
+<body>
+  <!-- Banner -->
+  <header>
+    <img src="banner.jpg.png" alt="College Banner" class="banner" />
+  </header>
+
+  <!-- Login Card -->
+  <div class="card-container">
+    <div class="card-box">
+      <h2>Student Portal</h2>
+
+      <div class="form-wrapper">
+        <!-- Login Form -->
+        <form id="loginForm" class="form active" action="/login" method="POST">
+          <label>Username:</label>
+          <input type="text" name="username" placeholder="Enter username" required />
+
+          <label>Password:</label>
+          <input type="password" name="password" placeholder="Enter password" required />
+
+          <button type="submit">Login</button>
+
+          <p class="switch-text">
+            Don’t have an account? <a href="#" onclick="toggleForm()">Create Account</a>
+          </p>
+        </form>
+
+        <!-- Signup Form -->
+        <form id="signupForm" class="form" action="/signup" method="POST">
+          <label>Full Name:</label>
+          <input type="text" name="full_name" placeholder="Enter full name" required />
+
+          <label>Email:</label>
+          <input type="email" name="email" placeholder="Enter email" required />
+
+          <label>Username:</label>
+          <input type="text" name="username" placeholder="Choose a username" required />
+
+          <label>Password:</label>
+          <input type="password" name="password" placeholder="Choose a password" required />
+
+          <button type="submit">Sign Up</button>
+
+          <p class="switch-text">
+            Already have an account? <a href="#" onclick="toggleForm()">Login</a>
+          </p>
+        </form>
+      </div>
+    </div>
+  </div>
+
+  <!-- Background Design -->
+  <div class="background-decor">
+    <div class="circle"></div>
+    <div class="triangle"></div>
+    <div class="square"></div>
+  </div>
+
+  <!-- Toggle Script -->
+  <script>
+    function toggleForm() {
+      const login = document.getElementById("loginForm");
+      const signup = document.getElementById("signupForm");
+
+      login.classList.toggle("active");
+      signup.classList.toggle("active");
+    }
+  </script>
+</body>
+</html>

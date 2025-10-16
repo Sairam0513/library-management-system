@@ -1,0 +1,78 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Admin Login</title>
+  <link rel="stylesheet" href="admin.css" />
+</head>
+<body>
+  <!-- Banner -->
+  <header>
+    <img src="banner.jpg.png" alt="College Banner" class="banner" />
+  </header>
+
+  <!-- Login Card -->
+  <div class="card-container">
+    <div class="card-box">
+      <h2>Admin Portal</h2>
+
+      <div class="form-wrapper">
+        <!-- Login Form -->
+        <form id="loginForm" class="form active">
+          <label>Username:</label>
+          <input type="text" placeholder="Enter username" required />
+
+          <label>Password:</label>
+          <input type="password" placeholder="Enter password" required />
+
+          <button type="submit">Login</button>
+
+          <p class="switch-text">
+            Don’t have an account? <a href="#" onclick="toggleForm()">Create Account</a>
+          </p>
+        </form>
+
+        <!-- Signup Form -->
+        <form id="signupForm" class="form">
+          <label>Full Name:</label>
+          <input type="text" placeholder="Enter full name" required />
+
+          <label>Email:</label>
+          <input type="email" placeholder="Enter email" required />
+
+          <label>Username:</label>
+          <input type="text" placeholder="Choose a username" required />
+
+          <label>Password:</label>
+          <input type="password" placeholder="Choose a password" required />
+
+          <button type="submit">Sign Up</button>
+
+          <p class="switch-text">
+            Already have an account? <a href="#" onclick="toggleForm()">Login</a>
+          </p>
+        </form>
+      </div>
+    </div>
+  </div>
+
+  <!-- Background Design -->
+  <div class="background-decor">
+    <div class="circle"></div>
+    <div class="triangle"></div>
+    <div class="square"></div>
+  </div>
+
+  <!-- Toggle Script -->
+  <script>
+    function toggleForm() {
+      const login = document.getElementById("loginForm");
+      const signup = document.getElementById("signupForm");
+
+      login.classList.toggle("active");
+      signup.classList.toggle("active");
+    }
+  </script>
+</body>
+</html>
